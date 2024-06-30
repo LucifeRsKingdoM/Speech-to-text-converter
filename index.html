@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Voice to Text Generator</title>
+<style>
+    body {
+        background-color: gray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 20px;
+    }
+    
+    .flex {
+        text-align: center;
+        color: brown;
+        background-color: aqua;
+        padding: 30px; /* Increased padding for the box */
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        width: 80%; /* Adjusted width for responsiveness */
+        max-width: 600px; /* Increased max-width for larger box */
+    }
+
+    textarea {
+        width: 100%;
+        height: 200px; /* Increased height of the textarea */
+        margin-bottom: 10px;
+        resize: none;
+        font-size: 35px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 25px;
+        cursor: pointer;
+        background-color:gray;
+        color: white;
+        border: 20px;
+        border-radius: 15px;
+        transition: background-color 0.3s;
+        border-color: black;
+    }
+
+    button:hover {
+        background-color:brown;
+    }
+</style>
+</head>
+<body>
+    <div class="flex">
+        <h1>Speech to Text Converter</h1>
+        <textarea id="output" rows="4" cols="50"></textarea><br>
+        <button id="start-btn">Start</button>
+        <button id="stop-btn">Stop</button>
+    </div>
+
+<script>
+const startBtn = document.getElementById("start-btn");
+const stopBtn = document.getElementById("stop-btn");
+
+startBtn.onclick = () => {
+    alert(" Converter Activeted !! ");
+    recognition.start();
+};
+
+stopBtn.onclick = () => {
+    alert("Converter Deactiveted !! ");
+    recognition.stop();
+};
+
+const recognition = new webkitSpeechRecognition();
+recognition.lang = 'en-US';
+recognition.interimResults = true;
+recognition.continuous = true;
+
+recognition.onresult = event => {
+    output.value = event.results[event.results.length - 1][0].transcript;
+};
+
+recognition.onerror = event => {
+    console.error('Speech recognition error occurred: ', event.error);
+};
+
+// Browser compatibility check
+if (!('webkitSpeechRecognition' in window)) {
+    alert("Speech recognition not supported in this browser.");
+}
+
+</script>
+</body>
+</html>
